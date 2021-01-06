@@ -88,11 +88,11 @@ function [outputs, ps] = sim_case39_n_2(a, b)
 
     %% print the results
     %
-    % fname = outputs.outfilename;
-    % [t,delta,omega,Pm,Eap,Vmag,theta,E1,Efd] = read_outfile(fname,ps,opt);
-    % omega_0 = 2*pi*ps.frequency;
-    % omega_pu = omega / omega_0;
-
-    delete * .csv; delete trace *;
+    fname = outputs.outfilename;
+    [t, delta, omega, Pm, Eap, Vmag, theta, E1, Efd] = read_outfile(fname, ps, opt);
+    omega_0 = 2 * pi * ps.frequency;
+    omega_pu = omega / omega_0;
+    %
+    %     delete * .csv; delete trace *;
 
 end
