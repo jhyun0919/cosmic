@@ -129,7 +129,7 @@ event(end, [C.ev.time C.ev.type]) = [t_max C.ev.finish];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% print the results
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-print_results(outputs, ps, opt, false);
+% print_results(outputs, ps, opt);
 
 % if opt.sim.writelog
 %     fname = outputs.outfilename;

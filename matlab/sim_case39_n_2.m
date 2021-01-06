@@ -84,14 +84,15 @@ function [outputs, ps] = sim_case39_n_2(a, b)
     event(4, [C.ev.time C.ev.type]) = [t_max C.ev.finish];
 
     %% run the simulation
-    [outputs, ps] = simgrid(ps, event, 'sim_case39', opt);
+    [outputs, ps] = simgrid(ps, event, 'results', 'sim_case39', opt);
 
     %% print the results
-    %
-    fname = outputs.outfilename;
-    [t, delta, omega, Pm, Eap, Vmag, theta, E1, Efd] = read_outfile(fname, ps, opt);
-    omega_0 = 2 * pi * ps.frequency;
-    omega_pu = omega / omega_0;
+    print_results(outputs, ps, opt);
+
+    % fname = outputs.outfilename;
+    % [t, delta, omega, Pm, Eap, Vmag, theta, E1, Efd] = read_outfile(fname, ps, opt);
+    % omega_0 = 2 * pi * ps.frequency;
+    % omega_pu = omega / omega_0;
     %
     %     delete * .csv; delete trace *;
 

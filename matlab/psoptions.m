@@ -47,7 +47,6 @@ function opt = psoptions(opt)
     opt.sim.temp_tdelay_ini = 0; % 0 sec delay for temp relay.
     opt.sim.dt_max_default = 1;
     opt.sim.optimizer = 'linprog';
-    opt.sim.show_graphs = false;
 
     % temperature relay settings
     opt.sim.temp.TA = 75 - 20; % the thermal limits for ACSR conductor, 75C; the ambient temerature 20C

@@ -122,7 +122,6 @@ event(4, [C.ev.time C.ev.type]) = [t_max C.ev.finish];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% print the results
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-opt.sim.show_graphs = true;
 print_results(outputs, ps, opt);
 
 % fname = outputs.outfilename;
