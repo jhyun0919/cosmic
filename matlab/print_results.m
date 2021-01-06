@@ -1,7 +1,7 @@
 function print_results(outputs, ps, opt)
 
     if opt.sim.writelog
-        fname = outputs.outfilename;
+        fname = sprintf('%s/%s', outputs.output_dir, outputs.outfilename);
         [t, delta, omega, Pm, Eap, Vmag, theta, E1, Efd, P3, Temperature] = read_outfile(fname, ps, opt);
         omega_0 = 2 * pi * ps.frequency;
         omega_pu = omega / omega_0;
