@@ -2,3 +2,5 @@
 *.csv
 
 matlab/.DS_Store
+
+matlab/results/
