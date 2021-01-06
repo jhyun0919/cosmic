@@ -2,9 +2,7 @@ function write_state(output_dir, outfilename, t_vector, X, Y)
     % usage: write_state(outfilename,t_vector,X,Y)
     % writes the state variables (t,x,y) to the output file
 
-    outfilename = sprintf('%s/%s', output_dir, outfilename);
-
-    fid = fopen(outfilename, 'a+');
+    fid = fopen(sprintf('%s/%s', output_dir, outfilename), 'a+');
     if isempty(fid), error('write_state:err', 'could not open %s .', outfilename); end
 
     for k = 1:length(t_vector)

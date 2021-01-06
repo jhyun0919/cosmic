@@ -82,7 +82,7 @@ function [outputs, ps] = simgrid(ps, event, output_dir, outfilename, opt)
     t = t_0;
 
     %% print something
-    out = fopen(outfilename, 'w');
+    out = fopen(sprintf('%s/%s', output_dir, outfilename), 'w');
 
     if isempty(out)
         error('simgrid:err', 'could not open outfile: %s', outfilename);
