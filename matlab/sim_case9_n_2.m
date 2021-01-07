@@ -1,5 +1,5 @@
 function [outputs, ps] = sim_case9_n_2(a, b, print_opt)
-    %% simulate 39-bus case
+    %% simulate 9-bus case
     C = psconstants;
     clear t_delay t_prev_check
 
@@ -84,7 +84,7 @@ function [outputs, ps] = sim_case9_n_2(a, b, print_opt)
     event(4, [C.ev.time C.ev.type]) = [t_max C.ev.finish];
 
     %% run the simulation
-    [outputs, ps] = simgrid(ps, event, 'results', 'sim_case39', opt);
+    [outputs, ps] = simgrid(ps, event, '../results/case9', 'sim_case9', opt);
 
     %% print the results
     if print_opt

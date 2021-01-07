@@ -122,7 +122,7 @@ event(4, [C.ev.time C.ev.type]) = [t_max C.ev.finish];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% run the simulation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-[outputs, ps] = simgrid(ps, event, 'results', 'sim_case9', opt);
+[outputs, ps] = simgrid(ps, event, '../results/case9', 'sim_case9', opt);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
