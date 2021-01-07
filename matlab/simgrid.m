@@ -45,7 +45,7 @@ function [outputs, ps] = simgrid(ps, event, output_dir, outfilename, opt)
     %% edit the output file name
     start_time = datestr(now, 30);
     outfilename = sprintf('%s_%s.csv', strtok(outfilename, '.'), start_time);
-    tracefilename = sprintf('trace_%s_%s.mat', strtok(outfilename, '.'), start_time);
+    tracefilename = sprintf('trace_%s.mat', strtok(outfilename, '.'));
 
     %% prepare the outputs
     outputs.success = false;
@@ -150,6 +150,7 @@ function [outputs, ps] = simgrid(ps, event, output_dir, outfilename, opt)
             % record events
             event_record = [event_record; ps.event_record]; %#ok<AGROW>
             ps.event_record = [];
+
         end
 
         %% update outputs and clean up
@@ -172,8 +173,13 @@ function [outputs, ps] = simgrid(ps, event, output_dir, outfilename, opt)
         outputs.event_record = event_record;
         outputs.computer_time = etime(clock, ct);
 
-        save(sprintf('%s/%s', 'results', tracefilename), 'x', 'y');
+        save(sprintf('%s/%s', output_dir, tracefilename), 'x', 'y');
 
         if opt.verbose
             fprintf('Completed simulation from %d sec. to %d sec. \n', t_0, t_next);
         end
+
+        % save the result as csv file
+        write_csv(outputs, ps, opt);
+
+    end

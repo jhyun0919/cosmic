@@ -122,7 +122,7 @@ event(end, [C.ev.time C.ev.type]) = [t_max C.ev.finish];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% run the simulation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-[outputs, ps] = simgrid(ps, event, 'results', 'sim_case2383', opt);
+[outputs, ps] = simgrid(ps, event, '../results/case2383', 'sim_case2383', opt);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -130,10 +130,3 @@ event(end, [C.ev.time C.ev.type]) = [t_max C.ev.finish];
 %% print the results
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % print_results(outputs, ps, opt);
-
-% if opt.sim.writelog
-%     fname = outputs.outfilename;
-%     [t, delta, omega, Pm, Eap, Vmag, theta, E1, Efd, P3, Temperature] = read_outfile(fname, ps, opt);
-%     omega_0 = 2 * pi * ps.frequency;
-%     omega_pu = omega / omega_0;
-% end

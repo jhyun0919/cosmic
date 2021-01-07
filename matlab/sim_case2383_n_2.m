@@ -1,4 +1,4 @@
-function [outputs, ps] = sim_case2383_n_2(a, b)
+function [outputs, ps] = sim_case2383_n_2(a, b, print_opt)
     %% simulate 2383-bus polish case
     C = psconstants;
     clear t_delay t_prev_check num_ls
@@ -90,45 +90,11 @@ function [outputs, ps] = sim_case2383_n_2(a, b)
     event(4, [C.ev.time C.ev.type]) = [t_max C.ev.finish];
 
     %% run the simulation
-    [outputs, ps] = simgrid(ps, event, 'results', 'sim_case2383', opt);
+    [outputs, ps] = simgrid(ps, event, '../results/case2383', 'sim_case2383', opt);
 
     %% print the results
-    print_results(outputs, ps, opt);
+    if print_opt
+        print_results(outputs, ps, opt);
+    end
 
-    % fname = outputs.outfilename;
-    % [t, delta, omega, Pm, Eap, Vmag, theta, E1, Efd] = read_outfile(fname, ps, opt);
-    % omega_0 = 2 * pi * ps.frequency;
-    % omega_pu = omega / omega_0;
-    %
-    % % delete *.csv; delete trace*;
-    %
-    % figure(1); clf;
-    % subplot(4,1,1); hold on;
-    % nl = size(omega_pu,2); colorset = varycolor(nl);
-    % set(gca, 'ColorOrder', colorset);
-    % plot(t',omega_pu');
-    % ylabel('omega pu');
-    % %legend(cellstr(num2str((1:nl)', 'omega_%d'))); legend boxoff;
-    %
-    % subplot(4,1,2); hold on;
-    % nl = size(theta,2); colorset = varycolor(nl);
-    % set(gca, 'ColorOrder', colorset);
-    % plot(t',theta');
-    % ylabel('theta');
-    % %legend(cellstr(num2str((1:nl)', 'theta_%d'))); legend boxoff;
-    %
-    % subplot(4,1,3); hold on;
-    % nl = size(Vmag,2); colorset = varycolor(nl);
-    % set(gca, 'ColorOrder', colorset);
-    % plot(t',Vmag');
-    % ylabel('Vmag');
-    % xlabel('time');
-    % %legend(cellstr(num2str((1:nl)', 'Vmag_%d'))); legend boxoff;
-    %
-    % subplot(4,1,4); hold on;
-    % nl = size(delta,2); colorset = varycolor(nl);
-    % set(gca, 'ColorOrder', colorset);
-    % plot(t',delta');
-    % ylabel('Delta');
-    % xlabel('time');
-    % %legend(cellstr(num2str((1:nl)', 'Delta_%d'))); legend boxoff;
+end
