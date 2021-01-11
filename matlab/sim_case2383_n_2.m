@@ -1,4 +1,4 @@
-function [outputs, ps] = sim_case2383_n_2(a, b, print_opt)
+function [outputs, ps] = sim_case2383_n_2(a, b, dir, print_opt)
     %% simulate 2383-bus polish case
     C = psconstants;
     clear t_delay t_prev_check num_ls
@@ -90,7 +90,7 @@ function [outputs, ps] = sim_case2383_n_2(a, b, print_opt)
     event(4, [C.ev.time C.ev.type]) = [t_max C.ev.finish];
 
     %% run the simulation
-    [outputs, ps] = simgrid(ps, event, '../results/case2383', 'sim_case2383', opt);
+    [outputs, ps] = simgrid(ps, event, dir, 'sim_case2383', opt);
 
     %% print the results
     if print_opt

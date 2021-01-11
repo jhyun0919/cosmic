@@ -1,4 +1,4 @@
-function [outputs, ps] = sim_case39_n_2(a, b, print_opt)
+function [outputs, ps] = sim_case39_n_2(a, b, dir, seed, verbose, print_opt)
     %% simulate 39-bus case
     C = psconstants;
     clear t_delay t_prev_check
@@ -54,6 +54,10 @@ function [outputs, ps] = sim_case39_n_2(a, b, print_opt)
     % initialize relays
     ps.relay = get_relays(ps, 'all', opt);
 
+    % create randomness in ___
+    rng(seed);
+    ps.bus(:, 3) = ps.bus(:, 3) + normrnd(0, 1, size(ps.bus(:, 3)));
+
     % initialize global variables
     global t_delay t_prev_check dist2threshold state_a
     n = size(ps.bus, 1);
@@ -84,7 +88,7 @@ function [outputs, ps] = sim_case39_n_2(a, b, print_opt)
     event(4, [C.ev.time C.ev.type]) = [t_max C.ev.finish];
 
     %% run the simulation
-    [outputs, ps] = simgrid(ps, event, '../results/case39', 'sim_case39', opt);
+    [outputs, ps] = simgrid(ps, event, dir, 'sim_case39', opt);
 
     %% print the results
     if print_opt

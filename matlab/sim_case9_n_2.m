@@ -1,4 +1,4 @@
-function [outputs, ps] = sim_case9_n_2(a, b, print_opt)
+function [outputs, ps] = sim_case9_n_2(a, b, dir, seed, verbose, print_opt)
     %% simulate 9-bus case
     C = psconstants;
     clear t_delay t_prev_check
@@ -34,7 +34,7 @@ function [outputs, ps] = sim_case9_n_2(a, b, print_opt)
     opt.sim.dt_default = 1/10;
     opt.nr.use_fsolve = true;
     % opt.pf.linesearch = 'cubic_spline';
-    opt.verbose = true;
+    opt.verbose = verbose;
     opt.sim.gen_control = 1; % 0 = generator without exciter and governor, 1 = generator with exciter and governor
     opt.sim.angle_ref = 0; % 0 = delta_sys, 1 = center of inertia---delta_coi
     % Center of inertia doesn't work when having islanding
@@ -53,6 +53,27 @@ function [outputs, ps] = sim_case9_n_2(a, b, print_opt)
     [ps.mac, ps.exc, ps.gov] = get_mac_state(ps, 'salient');
     % initialize relays
     ps.relay = get_relays(ps, 'all', opt);
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % create randomness in ___
+    mean = 0;
+    std = 1;
+    d_saclor = 0.05;
+
+    rng(seed);
+    %% bus.Pd
+    col_idx = 3;
+    ps.bus(:, col_idx) = ps.bus(:, col_idx) + normrnd(mean, std, size(ps.bus(:, col_idx)));
+    %% bus.Qd
+    col_idx = 4;
+    ps.bus(:, col_idx) = ps.bus(:, col_idx) + normrnd(mean, std, size(ps.bus(:, col_idx)));
+    %% gen.Pg
+    col_idx = 2;
+    ps.gen(:, col_idx) = ps.gen(:, col_idx) + (d_saclor * ps.gen(:, col_idx)) .* normrnd(mean, std, size(ps.gen(:, col_idx)));
+    %% gen.Qg
+    col_idx = 3;
+    ps.gen(:, col_idx) = ps.gen(:, col_idx) + (d_saclor * ps.gen(:, col_idx)) .* normrnd(mean, std, size(ps.gen(:, col_idx)));
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % initialize global variables
     global t_delay t_prev_check dist2threshold state_a
@@ -84,7 +105,7 @@ function [outputs, ps] = sim_case9_n_2(a, b, print_opt)
     event(4, [C.ev.time C.ev.type]) = [t_max C.ev.finish];
 
     %% run the simulation
-    [outputs, ps] = simgrid(ps, event, '../results/case9', 'sim_case9', opt);
+    [outputs, ps] = simgrid(ps, event, dir, 'sim_case9', opt);
 
     %% print the results
     if print_opt
